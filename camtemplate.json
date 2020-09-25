@@ -1,0 +1,61 @@
+{
+  "name": "Terraform Template for AKS Cluster",
+  "description": "Terraform Template for AKS Cluster",
+  "version": "1.0",
+  "type": "prebuilt",
+  "manifest": {
+    "template_type": "Terraform",
+    "template_format": "HCL",
+    "template_provider": "Microsoft Azure",
+    "template": {
+      "templateData": "",
+      "templateVariables": "",
+      "templateOutput": ""
+    },
+    "template_source": {
+      "githubRepoUrl": "",
+      "githubAccessToken": "",
+      "relativePathToTemplateFolder": "terraform",
+      "templateFileName": "main.tf"
+    }
+  },
+  "metadata": {
+      "displayName": "Terraform Template for AKS Cluster",
+      "providerDisplayName": "Terraform Template for AKS Cluster",
+      "longDescription": "Kubernetes cluster to be deployed in Microsoft Azure",
+      "bullets": [
+        {
+          "title": "Clouds",
+          "description": "Microsoft Azure"
+        },
+        {
+          "title": "Topology",
+          "description": "Microsoft Azure: 1 Kubernetes cluster with a configurable number of worker nodes"
+        },
+        {
+          "title": "Software deployed",
+          "description": "<ol class=\"list-numbering\"><li>Kubernetes cluster: Azure Kubernetes cluster</li></ol>"
+        }
+      ],
+      "featuredImageUrl": "https://ibmpatternengine-staticcontent-prod.eu-gb.mybluemix.net/ic_patternengine_50.png",
+      "imageUrl": "https://ibmpatternengine-staticcontent-prod.eu-gb.mybluemix.net/ic_patternengine_50.png",
+      "mediumImageUrl": "https://ibmpatternengine-staticcontent-prod.eu-gb.mybluemix.net/ic_patternengine_32.png",
+      "smallImageUrl": "https://ibmpatternengine-staticcontent-prod.eu-gb.mybluemix.net/ic_patternengine_24.png",
+      "documentationUrl": "https://console.stage1.ng.bluemix.net/docs/services/CloudAutomationManager/index.html",
+      "termsUrl": "http://www-03.ibm.com/software/sla/sladb.nsf/sla/bm-7448-01",
+      "media": [
+        {
+          "type": "image",
+          "thumbnailUrl": "https://ibmpatternengine-staticcontent-prod.eu-gb.mybluemix.net/screenshots_1.png",
+          "url": "https://ibmpatternengine-staticcontent-prod.eu-gb.mybluemix.net/screenshots_1_large.png",
+          "caption": ""
+        },
+        {
+          "type": "image",
+          "thumbnailUrl": "https://ibmpatternengine-staticcontent-prod.eu-gb.mybluemix.net/screenshots_2.png",
+          "url": "https://ibmpatternengine-staticcontent-prod.eu-gb.mybluemix.net/screenshots_2_large.png",
+          "caption": ""
+        }
+      ]
+    }      
+  }

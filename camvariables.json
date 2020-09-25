@@ -1,0 +1,412 @@
+{
+  "terraform_version": "~> 0.11.0",
+  "input_datatypes": [],
+  "output_datatypes": [
+    {
+      "name": "kubeconfig",
+      "dataobject": {
+        "name":"${template_input_params.cluster_name}",
+        "attributes":[
+          {
+            "name": "cluster_name",
+            "value": "${template_output_params.cluster_name}"
+          },
+          {
+            "name": "cluster_config",
+            "value": "${template_output_params.cluster_config}"
+          },
+          {
+            "name": "cluster_certificate_authority",
+            "value": "${template_output_params.cluster_certificate_authority}"
+          }              
+        ]
+      }
+    }
+  ],
+  "input_groups": [
+    {
+      "name": "cluster",
+      "label": "AKS Cluster"
+    },
+    {
+      "name": "serviceprincipal",
+      "label": "Service Principal"
+    },
+    {
+      "name": "workernodes",
+      "label": "Worker Nodes"
+    },
+    {
+      "name": "monitoring",
+      "label": "Cluster Monitoring"
+    }
+  ],
+  "template_input_params": [
+    {
+      "name": "cluster_name",
+      "type": "string",
+      "description": "Name of the cluster.",
+      "hidden": false,
+      "label": "Cluster Name",
+      "secured": false,
+      "required": true,
+      "immutable": false,
+      "group_name": "cluster",
+      "regex": "(?:[a-z](?:[-a-z0-9]{0,30}[a-z0-9])?)",
+      "regexdesc": "Cluster name can have lower case alphabets, numbers and dash. Must start with lower case alphabet and end with alpha-numeric character. Maximum length is 32 characters."
+    },
+    {
+     "name": "azure_region",
+     "label": "Azure Region",
+     "description": "Azure region to deploy infrastructure resources",
+     "hidden": false,
+     "immutable": false,
+     "required": true,
+     "secured": false,
+     "type": "string",
+     "options": [
+       {
+           "value": "West US",
+           "label": "West US"
+       },
+       {
+           "value": "West US 2",
+           "label": "West US 2"
+       },
+       {
+           "value": "East US",
+           "label": "East US",
+           "default": "true"
+       },
+       {
+           "value": "East US",
+           "label": "East US 2"
+       },
+       {
+           "value": "Central US",
+           "label": "Central US"
+       },
+       {
+           "value": "North Central US",
+           "label": "North Central US"
+       },
+       {
+           "value": "South Central US",
+           "label": "South Central US"
+       },
+       {
+           "value": "West Central US",
+           "label": "West Central US"
+       }
+     ],
+     "group_name": "cluster"
+    },
+    {
+      "name": "resource_group_name",
+      "type": "string",
+      "description": "Name of the resource group in which the cluster will be created",
+      "hidden": false,
+      "label": "Resource Group Name",
+      "secured": false,
+      "required": true,
+      "immutable": false,
+      "group_name": "cluster"
+    },
+    {
+      "name": "dns_prefix",
+      "type": "string",
+      "description": "DNS name prefix for the cluster's fully-qualified domain name.",
+      "hidden": false,
+      "label": "DNS Prefix",
+      "secured": false,
+      "required": true,
+      "immutable": false,
+      "group_name": "cluster"
+    },
+    {
+       "name": "kube_version",
+       "type": "string",
+       "description": "Kubernetes version for the cluster; 'latest' for the latest supported version, or version number in X.Y[.Z] format",
+       "default": "latest",
+       "hidden": false,
+       "label": "Kubernetes version",
+       "secured": false,
+       "required": true,
+       "immutable": false,
+       "group_name": "cluster"
+    }, 
+    {
+      "name": "principal_id",
+      "type": "string",
+      "description": "Service principal ID.",
+      "hidden": false,
+      "label": "Service Principal ID",
+      "secured": false,
+      "required": true,
+      "immutable": false,
+      "group_name": "serviceprincipal"
+    },
+    {
+      "name": "principal_password",
+      "type": "password",
+      "description": "Service principal password.",
+      "hidden": false,
+      "label": "Service Principal Password",
+      "secured": true,
+      "required": true,
+      "immutable": false,
+      "group_name": "serviceprincipal"
+    },
+    {
+      "name": "username",
+      "type": "string",
+      "description": "Login name for worker node VM",
+      "default": "ubuntu",
+      "hidden": false,
+      "label": "Login name",
+      "secured": false,
+      "required": true,
+      "immutable": false,
+      "group_name": "workernodes"
+    },
+    {
+      "name": "ssh_public_key",
+      "type": "string",
+      "description": "User public key",
+      "hidden": false,
+      "label": "User public key",
+      "secured": false,
+      "required": true,
+      "immutable": false,
+      "group_name": "workernodes"
+    },
+    {
+      "name": "worker_vm_size",
+      "type": "string",
+      "description": "Size of worker node VM",
+      "default": "Standard_D2_v2",
+      "hidden": false,
+      "label": "Worker Node VM Size",
+      "secured": false,
+      "required": true,
+      "immutable": false,
+      "group_name": "workernodes"
+    },
+    {
+      "name": "worker_count",
+      "type": "string",
+      "description": "Number of worker nodes",
+      "hidden": false,
+      "label": "Number of worker nodes",
+      "secured": false,
+      "options": [
+        {
+          "value": "1",
+          "label": "1",
+          "default": true
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        },
+        {
+          "value": "7",
+          "label": "7"
+        },
+        {
+          "value": "8",
+          "label": "8"
+        },
+        {
+          "value": "9",
+          "label": "9"
+        },
+        {
+          "value": "10",
+          "label": "10"
+        }
+      ],
+      "required": true,
+      "immutable": false,
+      "group_name": "workernodes"
+    },
+    {
+      "name": "enable_monitoring",
+      "type": "string",
+      "description": "Enable monitoring of the cluster",
+      "label": "Enable cluster monitoring",
+      "default": "true",
+      "secured": false,
+      "hidden": false,
+      "options": [
+        {
+          "value": "true",
+          "label": "true",
+          "default": true
+        },
+        {
+          "value": "false",
+          "label": "false"
+        }
+      ],
+      "required": true,
+      "immutable": false,
+      "group_name": "monitoring"
+    },
+    {
+      "name": "monitoring_solution_name",
+      "type": "string",
+      "description": "Enable monitoring of the cluster",
+      "label": "Monitoring solution",
+      "default": "ContainerInsights",
+      "secured": false,
+      "hidden": false,
+      "required": true,
+      "immutable": false,
+      "group_name": "monitoring"
+    },
+    {
+      "name": "monitoring_solution_publisher",
+      "type": "string",
+      "description": "Publisher of the monitoring solution",
+      "label": "Solution publisher",
+      "default": "Microsoft",
+      "secured": false,
+      "hidden": false,
+      "required": true,
+      "immutable": false,
+      "group_name": "monitoring"
+    },
+    {
+      "name": "monitoring_solution_product",
+      "type": "string",
+      "description": "Product name of the monitoring solution",
+      "label": "Solution product name",
+      "default": "OMSGallery/ContainerInsights",
+      "secured": false,
+      "hidden": false,
+      "required": true,
+      "immutable": false,
+      "group_name": "monitoring"
+    },
+    {
+      "name": "monitoring_sku",
+      "type": "string",
+      "description": "Pricing SKU for the monitoring workspace",
+      "label": "Monitoring pricing SKU",
+      "secured": false,
+      "hidden": false,
+      "options": [
+        {
+          "value": "Free",
+          "label": "Free"
+        },
+        {
+          "value": "PerNode",
+          "label": "PerNode"
+        },
+        {
+          "value": "Premium",
+          "label": "Premium"
+        },
+        {
+          "value": "Standard",
+          "label": "Standard"
+        },
+        {
+          "value": "Standalone",
+          "label": "Standalone"
+        },
+        {
+          "value": "Unlimited",
+          "label": "Unlimited"
+        },
+        {
+          "value": "PerGB2018",
+          "label": "PerGB2018",
+          "default": true
+        }
+      ],
+      "required": true,
+      "immutable": false,
+      "group_name": "monitoring"
+    },
+    {
+      "name": "monitoring_retention_days",
+      "type": "string",
+      "description": "Number of days (30 - 730) to retain monitoring data",
+      "label": "Retention days",
+      "default": "180",
+      "regex": "^[3-9][0-9]$|^[1-6][0-9]{2}$|^7[0-2][0-9]$|730",
+      "regexdesc": "A number between 30 and 730, inclusive",
+      "secured": false,
+      "hidden": false,
+      "required": false,
+      "immutable": false,
+      "group_name": "monitoring"
+    }
+  ],
+  "template_output_params": [
+    {
+        "name": "cluster_name",
+        "type": "string",
+        "description": "Cluster name or ID.",
+        "label": "Cluster name",
+        "hidden": false,
+        "secured": false,
+        "immutable": false
+    },          
+    {
+        "name": "cluster_config",
+        "type": "string",
+        "description": "Base64 encoded content of the kubeconfig yaml file.",
+        "label": "Cluster configuration",
+        "secured": true,
+        "hidden": false,
+        "immutable": false
+    },
+    {
+        "name": "cluster_certificate_authority",
+        "type": "string",
+        "description": "Base64 encoded certificate authority used to connect to the cluster.",
+        "label": "Cluster certificate authority",
+        "secured": true,
+        "hidden": false,
+        "immutable": false
+    },
+    {
+        "name": "cluster_location",
+        "type": "string",
+        "description": "Region/Location where the cluster is deployed within the cloud.",
+        "label": "Cluster location",
+        "secured": false,
+        "hidden": false,
+        "immutable": false
+    },
+    {
+        "name": "cluster_fqdn",
+        "type": "string",
+        "description": "Fully-qualified domain name of the cluster.",
+        "label": "Cluster domain name",
+        "secured": false,
+        "hidden": false,
+        "immutable": false
+    }
+  ]
+}
